@@ -47,7 +47,7 @@ function card(product: Product): string {
 
 export function catalogPage(products: readonly Product[]): string {
   const body = `    <section class="hero">
-      <img src="/img/hero.png" alt="Autumn collection" loading="lazy">
+      <img src="/img/hero.png" alt="Autumn collection" fetchpriority="high">
       <div class="hero-copy">
         <h1>Autumn collection</h1>
         <p>Everything you need, delivered as slowly as we render it.</p>
