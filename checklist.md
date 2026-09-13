@@ -12,6 +12,11 @@ Faz 7'de runbook'a derlenir.
 
 ## 1 · Ağ ve yükleme
 
+- LCP elemanı `loading="lazy"` taşıyor mu? → Insights "LCP request discovery"; ilk ekrandaki görsellerde asla lazy. (L01)
+- LCP görseli HTML'de `<img>` olarak keşfedilebilir mi, yoksa CSS/JS'ten mi geliyor? → Network track'te isteğin başlangıcı TTFB'ye yakın olmalı; CSS arka planı ~1 s geciktirdi. (L01)
+- LCP'nin dört fazından hangisi en büyük? → Sadece o faza yönelik düzeltme ölç; `fetchpriority` delay'i hedefler, duration'a dokunmaz. (L01)
+- Görselin boyutu ilk boyamadan önce biliniyor mu? → Erken istek + `width`/`height`; geç öğrenilen boyut CLS'e döner. (L01)
+
 ## 2 · Ana iş parçacığı ve render
 
 ## 3 · Sunucu ve veri
