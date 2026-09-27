@@ -51,4 +51,54 @@ Font swap stays on purpose; lab 06 handles it with `font-display` and `size-adju
 
 ## INP
 
-_(second half, in progress)_
+Diagnosis only; the fix belongs to lab 10. Two tools, no code changes, throttled page, console.
+
+### Tool A: Long Animation Frames observer
+
+`PerformanceObserver` on `long-animation-frame`, printing each frame's duration, blocking time and its scripts
+(`invoker · file · ms`). Findings:
+
+| Interaction | Frames | Scripts in the frame | Cost |
+| --- | --- | --- | --- |
+| page load | 951 ms, 277 ms blocking | `analytics.js` top-level, 301 ms | not an interaction; becomes input delay if the user clicks during it |
+| click "Add to cart" | ~340 ms, 288 ms blocking | `#document.onclick · analytics.js · 81 ms` then `#document.onclick · app.js · 251 ms` | two listeners on `document`, run in order; the third party taxes every click |
+| click into the search box | 84 ms | `analytics.js` 81 ms only | `app.js` returns early, the tax stays |
+| each keystroke | 211–227 ms | `#document.oninput · app.js · ~205 ms` | 240 cards × fake fuzzy match |
+
+Pasting the observer twice doubles every line (two observers, `VM198`/`VM202`); reload before re-registering.
+
+### Tool B: web-vitals v6 attribution build
+
+`onINP(cb, { reportAllChanges: true })` after typing "lamp" and one click:
+
+| Field | Value |
+| --- | --- |
+| value | **560 ms** |
+| interactionType / target | keyboard / `#search` |
+| inputDelay | 96 ms |
+| processingDuration | 422 ms |
+| presentationDelay | 41 ms |
+| totalScriptDuration / totalStyleAndLayoutDuration | 488 ms / 0 ms |
+| longestScript.subpart | `processing-duration` |
+| longAnimationFrameEntries | 2 frames: 220 ms (1 script) and 424 ms (2 scripts) |
+
+### Reading
+
+- Input delay is the previous interaction's unfinished handler. A 205 ms keystroke handler means a key pressed
+  100 ms later waits 105 ms before its own handler starts. Lab 00's 190 ms input delay was exactly this.
+- The reported INP (560) is larger than one keystroke (~250) because two queued keystrokes were processed in the
+  same frame (207 + 205 ms). INP reports the worst interaction, and the worst is where events pile up.
+- `totalStyleAndLayoutDuration: 0` rules out rendering; the cost is JavaScript, split between the site's own
+  handler and a third-party click listener that runs on every click regardless of target.
+- LoAF's `invoker` names the listener (`#document.onclick`, `#document.oninput`) and `sourceURL` names the file,
+  so the "which script, which listener, how many ms" table comes out without reading the code. This is the table
+  lab 10 will attack: delete or scope the third-party listener, index the cards instead of scanning them, yield
+  between chunks.
+
+## Method lessons
+
+- Name a shift by evidence (task chain in Bottom-up, request end in Network, filmstrip diff), not by the tool's
+  culprit label.
+- One recording is one sample; diamonds move between recordings, and a shift that did not happen once can happen
+  on a slower network. Size above-the-fold media regardless.
+- For INP, read the attribution build in the field and LoAF entries in the lab; the two agree to the millisecond.

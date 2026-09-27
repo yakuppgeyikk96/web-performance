@@ -118,4 +118,6 @@ soruları kapı değil, lab sonu sohbeti.
 | --- | --- | --- |
 | L00 · Kurulum ve cihaz tabanı | ✅ | `labs/00-first-trace.md`: LCP 1.70 s (yanıltıcı), INP 647 ms, CLS 0.41 |
 | L01 · LCP anatomisi | ✅ | `labs/01-lcp-anatomy.md`: lazy kaldırınca load delay 1 206 → 153 ms, CLS 0.53 → 0.09; kalan 13.5 s indirme (L06) |
-| L02 · CLS ve INP anatomisi | ⏳ | |
+| L02 · CLS ve INP anatomisi | ✅ | `labs/02-cls-inp.md`: CLS 0.04 → 0.00 (promo sunucuda, görsel boyutları); INP 560 ms teşhis: 96 + 422 + 41, iki dinleyici, üst üste binen tuşlar |
+| Faz 0 blog taslağı | ⏳ | L00–L02 birleşik yazı |
+| L03 · Bağlantı ve HTTP sürümleri | ⏳ | |

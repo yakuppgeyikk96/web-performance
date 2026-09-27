@@ -24,6 +24,10 @@ Faz 7'de runbook'a derlenir.
 
 ## 2 · Ana iş parçacığı ve render
 
+- INP'nin üç fazından hangisi büyük? → web-vitals attribution: `inputDelay` önceki işin artığı, `processingDuration` dinleyiciler, `presentationDelay` render. (L02)
+- Bir etkileşimde kaç dinleyici çalışıyor, hangisi üçüncü parti? → LoAF `scripts[].invoker` + `sourceURL`; `document` seviyesindeki üçüncü parti dinleyici her tıklamayı vergilendirir. (L02)
+- En kötü etkileşim olayların üst üste bindiği an mı? → `longAnimationFrameEntries` içinde aynı karede birden çok script görünüyorsa evet; tek tuşun süresi değil, kuyruğun süresi INP'dir. (L02)
+
 ## 3 · Sunucu ve veri
 
 ## 4 · React / Next
