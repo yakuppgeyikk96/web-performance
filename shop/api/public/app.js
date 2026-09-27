@@ -32,12 +32,3 @@ document.addEventListener("input", (event) => {
   }
   document.getElementById("result-count").textContent = `${visible} products`;
 });
-
-setTimeout(() => {
-  const main = document.getElementById("main");
-  if (!main) return;
-  const promo = document.createElement("div");
-  promo.className = "promo";
-  promo.textContent = "Free shipping this week on orders over ₺500";
-  main.prepend(promo);
-}, 1500);

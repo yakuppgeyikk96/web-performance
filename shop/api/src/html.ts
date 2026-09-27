@@ -26,6 +26,7 @@ export function layout(title: string, body: string): string {
     </nav>
   </header>
   <main id="main">
+  <div class="promo">Free shipping this week on orders over ₺500</div>
 ${body}
   </main>
   <footer class="site-footer">Slow Shop · a fixture for web-performance labs</footer>
@@ -36,7 +37,7 @@ ${body}
 function card(product: Product): string {
   return `      <article class="card" data-name="${escape(product.name)}" data-category="${escape(product.category)}">
         <a href="/products/${product.slug}">
-          <img src="/img/product/${product.id}.svg" alt="">
+          <img src="/img/product/${product.id}.svg" alt="" width="1200" height="1200">
           <h3>${escape(product.name)}</h3>
         </a>
         <p class="meta">${escape(product.category)} · ★ ${product.rating}</p>
@@ -47,7 +48,7 @@ function card(product: Product): string {
 
 export function catalogPage(products: readonly Product[]): string {
   const body = `    <section class="hero">
-      <img src="/img/hero.png" alt="Autumn collection" fetchpriority="high">
+      <img src="/img/hero.png" alt="Autumn collection" fetchpriority="high" width="2400" height="1200">
       <div class="hero-copy">
         <h1>Autumn collection</h1>
         <p>Everything you need, delivered as slowly as we render it.</p>

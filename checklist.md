@@ -17,6 +17,11 @@ Faz 7'de runbook'a derlenir.
 - LCP'nin dört fazından hangisi en büyük? → Sadece o faza yönelik düzeltme ölç; `fetchpriority` delay'i hedefler, duration'a dokunmaz. (L01)
 - Görselin boyutu ilk boyamadan önce biliniyor mu? → Erken istek + `width`/`height`; geç öğrenilen boyut CLS'e döner. (L01)
 
+- İlk ekrandaki her `<img>`/`<video>`/`iframe` boyut taşıyor mu? → `width`/`height` veya `aspect-ratio`; bir kayıtta kaymaması kanıt değil. (L02)
+- Sonradan eklenen içerik (banner, çerez, API cevabı) akışı itiyor mu? → İstek anında biliniyorsa sunucuda render; boyutu biliniyorsa yuva ayır; bilinmiyorsa akış dışı. (L02)
+- Kaymanın sebebi etiketle değil kanıtla mı bulundu? → Zaman korelasyonu (Network/Main/filmstrip), Bottom-up'taki task zinciri; `docs/finding-layout-shift-causes.md`. (L02)
+- Kayıt öncesi DevTools ayarları kontrol edildi mi? → CPU kalibre, Slow 4G, cache kapalı; yeni oturum ayarları unutur. (L02)
+
 ## 2 · Ana iş parçacığı ve render
 
 ## 3 · Sunucu ve veri
